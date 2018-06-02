@@ -1,5 +1,6 @@
+# Tags Controller
 class TagsController < ApplicationController
-  before_action :set_tag, only: [:show, :update, :destroy]
+  before_action :set_tag, only: %i[show flashcards update destroy]
 
   # GET /tags
   def index
@@ -38,14 +39,19 @@ class TagsController < ApplicationController
     @tag.destroy
   end
 
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_tag
-      @tag = Tag.find(params[:id])
-    end
+  def flashcards
+    @tag.flashcards
+  end
 
-    # Only allow a trusted parameter "white list" through.
-    def tag_params
-      params.require(:tag).permit(:user_id, :name)
-    end
+  private
+
+  # Use callbacks to share common setup or constraints between actions.
+  def set_tag
+    @tag = Tag.find(params[:id])
+  end
+
+  # Only allow a trusted parameter "white list" through.
+  def tag_params
+    params.require(:tag).permit(:user_id, :name)
+  end
 end
